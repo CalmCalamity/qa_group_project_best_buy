@@ -20,7 +20,7 @@ describe("BestBuy Tests", () => {
       await driver.quit();
     });
 
-     // Test that runs a basic search
+     // Test that clicks on Deal of the Day
      test("Deal of the Day", async () => {
        
        

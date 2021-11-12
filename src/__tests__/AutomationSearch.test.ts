@@ -20,7 +20,7 @@ describe("BestBuy Search Tests", () => {
     });
 
     // Test that runs a basic search
-    test("Simple Search Test", async () => {
+    it("Simple Search Test", async () => {
       await page.doSearch(searchQuery);
       expect(await page.getResults()).toContain(searchQuery);
     }, 60000);

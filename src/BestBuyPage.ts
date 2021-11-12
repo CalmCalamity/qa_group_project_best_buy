@@ -29,7 +29,7 @@ export class BestBuyPage extends BasePage{
     cartFirstRemove: By = By.xpath("(//a [@class='btn-default-link link-styled-button cart-item__remove'])[1]");
     cartConfirmRemove: By = By.xpath("//div/button [@class='c-button-unstyled ']");
     cartFirstSave: By = By.xpath("(//a [@class='btn-default-link link-styled-button cart-item__save'])[1]");
-    cartSavedList: By = By.className("saved-items-gvp-wrapper");
+    cartSavedList: By = By.className("sku-card-ref");
   
     constructor(driver: WebDriver) {
         super(driver, url);

@@ -19,18 +19,9 @@ describe("BestBuy Search Tests", () => {
     await driver.quit();
   });
 
-<<<<<<< HEAD
   // Test that runs a basic search
   test("Simple Search Test", async () => {
     await page.doSearch(searchQuery);
     expect(await page.getResults()).toContain(searchQuery);
   }, 60000);
 });
-=======
-    // Test that runs a basic search
-    it("Simple Search Test", async () => {
-      await page.doSearch(searchQuery);
-      expect(await page.getResults()).toContain(searchQuery);
-    }, 60000);
-  });
->>>>>>> 50d8d3f88f2783b3e4436d3a2d0f2ef3350f5706

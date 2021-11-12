@@ -6,11 +6,13 @@ const url: string = "https://www.bestbuy.com";
 
 export class BestBuyPage extends BasePage{
     home: By = By.className("logo");
+    shoppingCart: By = By.className("cart-icon");
     searchBar: By = By.className("search-input");
     results: By = By.className("col-xs-9");
     firstResult: By = By.xpath("(//img [@class='product-image'])[1]");
     sku: By = By.className("sku product-data");
     cancelPopup: By = By.className("c-close-icon c-modal-close-icon");
+    // cancelSurvey: By = By.className("c-close-icon c-modal-close-icon");
     menu: By = By.className("c-button-unstyled hamburger-menu-button");
     menuIcon:  By = By.className("liDropdownList");
     menuSupport:  By = By.xpath("//button [contains(text(), 'Support & Services')]");
@@ -21,6 +23,13 @@ export class BestBuyPage extends BasePage{
     promoTitle: By = By.className("promo-title title");
     searchTitle: By = By.className("search-title");
     skuTitle: By =  By.className("sku-title");
+    addToCartButton: By =  By.className("c-button c-button-primary c-button-lg c-button-block c-button-icon c-button-icon-leading add-to-cart-button");
+    continueShoppingButton: By =  By.className("c-button-link continue-shopping");
+    shoppingCartList: By =  By.className("item-list");
+    cartFirstRemove: By = By.xpath("(//a [@class='btn-default-link link-styled-button cart-item__remove'])[1]");
+    cartConfirmRemove: By = By.xpath("//div/button [@class='c-button-unstyled ']");
+    cartFirstSave: By = By.xpath("(//a [@class='btn-default-link link-styled-button cart-item__save'])[1]");
+    cartSavedList: By = By.className("saved-items-gvp-wrapper");
   
     constructor(driver: WebDriver) {
         super(driver, url);
@@ -30,13 +39,13 @@ export class BestBuyPage extends BasePage{
     async navigate() {
         await super.navigate();
         // need to close popup if it exists
-        if(await this.driver.findElement(this.cancelPopup).isDisplayed()){
+        if(await this.driver.findElement(this.cancelPopup).isDisplayed(), 1000){
             await this.click(this.cancelPopup);
             // while the popup is an issue we need to sleep so the site is reachable
             await this.driver.sleep(2000);
         }
-        await this.driver.wait(until.elementLocated(this.searchBar));
-        await this.driver.wait(until.elementIsVisible(await this.driver.findElement(this.searchBar)));
+        // await this.driver.wait(until.elementLocated(this.searchBar));
+        // await this.driver.wait(until.elementIsVisible(await this.driver.findElement(this.searchBar)));
     }
 
     async doSearch(text: string) {
@@ -82,4 +91,43 @@ export class BestBuyPage extends BasePage{
     async goHome() {
         await this.click(this.home);
     }
+
+    async goShoppingCart() {
+        await this.click(this.shoppingCart);
+    }
+
+    async addToCart() {
+        await this.click(this.addToCartButton);
+        await this.click(this.continueShoppingButton);
+    }
+
+    async doSearchAddToCart(text: string) {
+        await this.doSearchFeelingLucky(text);
+        await this.addToCart();
+    }
+
+    async cartRemove() {
+        await this.click(this.cartFirstRemove);
+        // await this.driver.sleep(2000);
+        await this.click(this.cartConfirmRemove);
+    }
+
+    async cartSaveForLater() {
+        await this.click(this.cartFirstSave);
+        await this.click(this.cartConfirmRemove);
+    }
+
+    //Commented out code to check if the survey was displayed
+    // each click adds 10 seconds to the run time which is not acceptable
+
+    // async click(elementBy: By) {
+    //     // check for survey
+    //     if(await this.driver.findElement(this.cancelSurvey).isDisplayed()){
+    //         await super.click(this.cancelSurvey);
+    //         // while the popup is an issue we need to sleep so the site is reachable
+    //         await this.driver.sleep(2000);
+    //     }
+
+    //     await super.click(elementBy);
+    // }
 }

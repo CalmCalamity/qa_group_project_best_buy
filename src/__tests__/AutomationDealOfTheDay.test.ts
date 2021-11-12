@@ -1,5 +1,3 @@
-
-   
 import { BestBuyPage } from "../BestBuyPage";
 import { WebDriver, Builder, Capabilities, By } from "selenium-webdriver";
 
@@ -16,7 +14,7 @@ describe("BestBuy Tests", () => {
     // Before tests open the page and close the popup
     beforeAll(async () => {
       await page.navigate();
-    }, 40000);
+    }, 10000);
     // After tests kill the connections
     afterAll(async () => {
       await driver.quit();
@@ -28,5 +26,5 @@ describe("BestBuy Tests", () => {
        
         await page.click(DD);
         expect(await page.getText(timeLeft));
-      }, 60000);
+      }, 30000);
     });

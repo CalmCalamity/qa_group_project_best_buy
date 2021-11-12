@@ -7,9 +7,9 @@ const driver: WebDriver = new Builder()
 const page = new BestBuyPage(driver);
 
 // variables for tests
-const searchQuery: string = "fish";
+const pageTitle: string = "Computer & Tablet Services";
 
-describe("BestBuy Search Tests", () => {
+describe("BestBuy Menu Tests", () => {
     // Before tests open the page and close the popup
     beforeAll(async () => {
       await page.navigate();
@@ -19,9 +19,9 @@ describe("BestBuy Search Tests", () => {
       await driver.quit();
     });
 
-    // Test that runs a basic search
-    it("Simple Search Test", async () => {
-      await page.doSearch(searchQuery);
-      expect(await page.getResults()).toContain(searchQuery);
+    // Test that opens one of items from the menu then verifies that is the pageTitle in the variable
+    test("Menu Test", async () => {
+      await page.openSupportMenu();
+      expect(await page.checkTitle(pageTitle)).toBe(true);
     }, 60000);
   });

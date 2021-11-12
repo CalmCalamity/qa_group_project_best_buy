@@ -1,5 +1,7 @@
+
+   
 import { BestBuyPage } from "../BestBuyPage";
-import { WebDriver, Builder, Capabilities } from "selenium-webdriver";
+import { WebDriver, Builder, Capabilities, By } from "selenium-webdriver";
 
 const driver: WebDriver = new Builder()
   .withCapabilities(Capabilities.chrome())
@@ -7,9 +9,10 @@ const driver: WebDriver = new Builder()
 const page = new BestBuyPage(driver);
 
 // variables for tests
-const searchQuery: string = "fish";
+const DD = By.css('a[data-lid="hdr_dotd"]');
+const timeLeft = By.css('p[class="countdown-title"') 
 
-describe("BestBuy Tests",() => {
+describe("BestBuy Tests", () => {
     // Before tests open the page and close the popup
     beforeAll(async () => {
       await page.navigate();
@@ -19,9 +22,11 @@ describe("BestBuy Tests",() => {
       await driver.quit();
     });
 
-    // Test that runs a basic search
-    it("Simple Search Test", async () => {
-      await page.doSearch(searchQuery);
-      expect(await page.getResults()).toContain(searchQuery);
-    }, 60000);
-  });
+     // Test that clicks on Deal of the Day
+     test("Deal of the Day", async () => {
+       
+       
+        await page.click(DD);
+        expect(await page.getText(timeLeft));
+      }, 60000);
+    });
